@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>{% block title %}  {% endblock %}Hexashop Ecommerce HTML CSS Template</title>
+    <title>{% block title %}{% endblock %}</title>
 
 
     <!-- Additional CSS Files -->
@@ -60,28 +60,32 @@ https://templatemo.com/tm-571-hexashop
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+                            <li class="scroll-to-section"><a href="http://127.0.0.1:8000/index/index/" class="active">Home</a></li>
                             <li class="scroll-to-section"><a href="#men">Men's</a></li>
                             <li class="scroll-to-section"><a href="#women">Women's</a></li>
                             <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
                             <li class="submenu">
-                                <a href="javascript:;">Pages</a>
+                                {% if user.is_authenticated %}
+                            <li class="submenu">
+                                <a href="javascript:;">{{request.user}}</a>
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="products.html">Contact Us</a></li>
-                                    <li><a href="single-product.html">Log In</a></li>
-                                    <li><a href="contact.html">Log Out</a></li>
+                                 <li><a href="http://127.0.0.1:8000/index/logout/">Log Out</a></li>
                                 </ul>
                             </li>
-                            <!-- <li class="submenu">
-                                <a href="javascript:;">Features</a>
-                                <ul>
-                                    <li><a href="#">Features Page 1</a></li>
-                                    <li><a href="#">Features Page 2</a></li>
-                                    <li><a href="#">Features Page 3</a></li>
-                                    <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
-                                </ul>
-                            </li> -->
+                              {% else %}
+                            <li class="submenu">
+                                <a href="javascript:;">Pages</a>  
+                                <ul>    
+                                    <li><a href="http://127.0.0.1:8000/index/about/">About Us</a></li>
+                                    <li><a href="http://127.0.0.1:8000/index/contact/">Contact Us</a></li>
+                                    <li><a href="http://127.0.0.1:8000/index/signup/">Signup</a></li>
+                                    <li><a href="http://127.0.0.1:8000/index/login/">Log In </a></li>
+                                </ul> 
+                            </li>
+                              {% endif %}
+                              
+                      
+
                             <li class="scroll-to-section"><a href="#explore">Explore</a></li>
                         </ul>        
                         <a class='menu-trigger'>

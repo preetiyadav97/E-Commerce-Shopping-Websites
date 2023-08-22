@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from Buy.admin import Contact,Image
+from Buy.admin import Contact,Category,Product,Cart,Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 # ---- import for send email -----
@@ -25,15 +25,20 @@ def index(request):
     return render(request,'index.html')
 
 def product(request):
-    data=Image.objects.all()
-    show={'data':data}
-    return render(request,'products.html',show)
+    man_products=Product.objects.filter(cat=5)
+    woman_products=Product.objects.filter(cat=6)
+    kid_products=Product.objects.filter(cat=7)
+
+    show={'man_products':man_products}
+    women={'woman_products':woman_products}
+    kid={'kid_products':kid_products}
+    return render(request,'products.html',show,women,kid)
 
 def single(request):
     return render(request,'single-product.html')
     
 def nav(request):
-    return render(request,'nav.html')
+    return render(request,'show.html')
 
 def signup(request):
     if request.method == 'POST':
@@ -44,15 +49,18 @@ def signup(request):
         gender=request.POST['gender']
         passward=request.POST['passward']
         confirmpassward=request.POST['confirmpassward']
+
         user = User.objects.create_user(username,email,passward)
         user.first_name=fname
         user.last_name=lname
+
         user.save()
         return redirect("index1")
+
     return render(request,'sign.html')
 
 def login_detail(request):
-    if request.method == 'POST':
+    if request.method =="POST":
         loginusername=request.POST['loginusername']
         loginpassword=request.POST['loginpassword']
         user = authenticate(username=loginusername, passward=loginpassword)
@@ -63,6 +71,7 @@ def login_detail(request):
            return HttpResponse('Not - found pages')
     return render(request,'login.html')
 
+
 def logout_detail(request):
     logout(request)
-    return render(request,'sign.html')
+    return render(request,'index.html')

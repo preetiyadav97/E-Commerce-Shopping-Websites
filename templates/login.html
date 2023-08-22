@@ -1,8 +1,6 @@
 {% extends 'nav.html' %}
-{% block title %}
-
-{% endblock %}
-{% block css %}
+{% block title %}Login {% endblock %}
+{% block CSS %}
         <link rel="stylesheet" href="/static/assets/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
 		<!-- STYLE CSS -->
@@ -21,7 +19,7 @@
 				<div class="image-holder">
 					<img src="/static/assets/images/registration-form-1.jpg" alt="">
 				</div>
-				<form action="" method ="POST">
+				<form action=""  method="POST">
 				    {% csrf_token %}
 					<h3>Log In </h3>
 					
