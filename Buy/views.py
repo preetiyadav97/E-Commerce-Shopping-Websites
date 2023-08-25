@@ -2,9 +2,15 @@ from django.shortcuts import render,HttpResponse,redirect
 from Buy.admin import Contact,Category,Product,Cart,Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-# ---- import for send email -----
-from django.core.mail import send_mail
 
+# ---- import for send messages -----
+from django.contrib import messages
+# ---- import for send email -----
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.core.mail import EmailMultiAlternatives
 # ---- END -------
 
 
@@ -19,21 +25,43 @@ def contact(request):
         mgs=request.POST['message']
         detail=Contact(name=name,email=email,mgs=mgs)
         detail.save()
+        
+        #--------
+        # details={'name':name,'email':email,'mgs':mgs}
+        # subject="Thanks for contacting"
+        # html_message=render_to_string("contact.html",details)
+        # plain_message=strip_tags(html_message)
+        # from_email="k68146369@gmail.com"
+        # to= "preetiyadav73703@gmail.com"
+
+        # send_mail(subject,html_message=html_message,plain_message,from_email,to,fail_silently=False)
+        send_mail(
+          "Thanks for contacting",
+           mgs,
+          'settings.EMAIL_HOST_USER',
+           ['preetiyadav73703@gmail.com'],
+           fail_silently=False,
+        )
     return render(request,'contact.html')
 
 def index(request):
     return render(request,'index.html')
 
 def product(request):
-    man_products=Product.objects.filter(cat=5)
-    woman_products=Product.objects.filter(cat=6)
-    kid_products=Product.objects.filter(cat=7)
+        man_products=Product.objects.filter(cat__name="Men")
 
-    show={'man_products':man_products}
-    women={'woman_products':woman_products}
-    kid={'kid_products':kid_products}
-    return render(request,'products.html',show,women,kid)
+        woman_products=Product.objects.filter(cat__name="women's")
+        kid_products=Product.objects.filter(cat__name="Kids")
+        return render(request,'products.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
 
+    # show={'man_products':man_products}
+    # women={'woman_products':woman_products}
+    # kid={'kid_products':kid_products}
+
+# print(man_products)
+    # for i in man_products:
+    #     print(i.name)
+    #     print(i.price)
 def single(request):
     return render(request,'single-product.html')
     
@@ -47,10 +75,10 @@ def signup(request):
         username=request.POST['username']
         email=request.POST['email']
         gender=request.POST['gender']
-        passward=request.POST['passward']
-        confirmpassward=request.POST['confirmpassward']
+        password=request.POST['password']
+        confirmpassword=request.POST['confirmpassword']
 
-        user = User.objects.create_user(username,email,passward)
+        user = User.objects.create_user(username,email,password)
         user.first_name=fname
         user.last_name=lname
 
@@ -59,19 +87,43 @@ def signup(request):
 
     return render(request,'sign.html')
 
+# def login_detail(request):
+#     # print("Login")
+#     if request.method =="POST":
+#         print("Login")
+#         loginusername=request.POST['loginusername']
+#         print(loginusername)
+#         loginpassword=request.POST['loginpassword']
+#         print(loginpassword)
+#         user = authenticate(username=loginusername, passward=loginpassword)
+#         print(user)
+    
+#         if user is not None:
+#             login(request,user)
+#             return redirect("index1")
+#         else:
+#            return HttpResponse('Not - found pages')
+#     return render(request,'login.html')
+
 def login_detail(request):
     if request.method =="POST":
-        loginusername=request.POST['loginusername']
-        loginpassword=request.POST['loginpassword']
-        user = authenticate(username=loginusername, passward=loginpassword)
-    
+        username = request.POST["loginusername"]
+        password = request.POST["loginpassword"]
+        user = authenticate(username=username, password=password)
+        print(user)
+        print("==================================")
         if user is not None:
-            login(request,user)
+            login(request, user)
+            return redirect("index1")
+            
+            
         else:
-           return HttpResponse('Not - found pages')
+            return HttpResponse('Not - found pages')
+
     return render(request,'login.html')
 
 
 def logout_detail(request):
     logout(request)
     return render(request,'index.html')
+

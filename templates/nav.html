@@ -64,7 +64,7 @@ https://templatemo.com/tm-571-hexashop
                             <li class="scroll-to-section"><a href="#men">Men's</a></li>
                             <li class="scroll-to-section"><a href="#women">Women's</a></li>
                             <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
-                            <li class="submenu">
+                    
                                 {% if user.is_authenticated %}
                             <li class="submenu">
                                 <a href="javascript:;">{{request.user}}</a>
@@ -99,6 +99,7 @@ https://templatemo.com/tm-571-hexashop
         </div>
     </header>
     <!-- ***** Header Area End ***** -->
+     
     {% block body %} {% endblock %}
 
      <!-- ***** Footer Start ***** -->

@@ -50,6 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'userena.backends.UserenaAuthenticationBackend',
+    'guardian.backends.ObjectPermissionBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 ROOT_URLCONF = 'cloths_w.urls'
 
 TEMPLATES = [
@@ -129,6 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST="smtp.gmail.com"
 EMAIL_PORT=587
-EMAIL_HOST_USER="k68146369.gmail.com"
-EMAIL_HOST_PASSWORD='ogywmukccgekqvvk'
+EMAIL_HOST_USER="k68146369@gmail.com"
+EMAIL_HOST_PASSWORD='yswqmztumfsluyqm'
 EMAIL_USE_TLS=True
