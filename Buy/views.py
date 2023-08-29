@@ -45,23 +45,19 @@ def contact(request):
     return render(request,'contact.html')
 
 def index(request):
-    return render(request,'index.html')
+    man_products=Product.objects.filter(cat__name="Men")
+    woman_products=Product.objects.filter(cat__name="women's")
+    kid_products=Product.objects.filter(cat__name="Kids")
+    return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
+     
 
 def product(request):
-        man_products=Product.objects.filter(cat__name="Men")
+    man_products=Product.objects.filter(cat__name="Men",permission=True)
+    woman_products=Product.objects.filter(cat__name="women's",permission=True)
+    kid_products=Product.objects.filter(cat__name="Kids",permission=True)
+    # per=Product.objects.filter(permission=True)
+    return render(request,'products.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
 
-        woman_products=Product.objects.filter(cat__name="women's")
-        kid_products=Product.objects.filter(cat__name="Kids")
-        return render(request,'products.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
-
-    # show={'man_products':man_products}
-    # women={'woman_products':woman_products}
-    # kid={'kid_products':kid_products}
-
-# print(man_products)
-    # for i in man_products:
-    #     print(i.name)
-    #     print(i.price)
 def single(request):
     return render(request,'single-product.html')
     
@@ -125,5 +121,41 @@ def login_detail(request):
 
 def logout_detail(request):
     logout(request)
-    return render(request,'index.html')
+    man_products=Product.objects.filter(cat__name="Men")
+    woman_products=Product.objects.filter(cat__name="women's")
+    kid_products=Product.objects.filter(cat__name="Kids")
+    return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
+    # return render(request,'index.html')
+
+
+def cart(request,pk):
+    user=request.user
+  
+    productid=pk
+ 
+    a=Cart(user_id=user.id,product_id=productid)
+    
+    dat=Cart.objects.all()
+    show={'dat':dat}
+   
+
+    return render(request,'single-product.html',show)
+
+def cartshow(request,pk):
+    user=request.user
+    product=Product.objects.get(id=pk)
+    p=user.id
+    a=Cart.objects.filter(user_id=p)
+    # b=user_id
+    # print(b)
+    print(a)
+    dat=Cart.objects.all()
+    show={'dat':dat}
+   
+
+    return render(request,'single-product.html',show)
+
+
+
+
 

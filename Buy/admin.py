@@ -17,12 +17,11 @@ admin.site.register(Category)
 
 class ProductAdmin(admin.ModelAdmin):
     model=Product
-    list_display=['name','price','image']
+    list_display=['name','price','image','permission']
 admin.site.register(Product,ProductAdmin)
 
+
 #  Cart-------
-
-
 admin.site.register(Cart)
 
 # Wallet------

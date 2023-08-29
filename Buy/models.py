@@ -23,9 +23,12 @@ class Product(models.Model):
     name=models.CharField(max_length=500)
     price=models.FloatField(null=True,blank=True)
     image=models.ImageField(upload_to="static/assets/img")
+    permission=models.BooleanField(default=False,null=None,blank=None)
 
     def __str__(self):
         return self.name
+
+
 
 
 class Cart(models.Model):
