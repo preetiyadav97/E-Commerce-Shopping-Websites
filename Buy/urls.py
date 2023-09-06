@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import path
-from .views import index,about,contact,product,single,signup,login_detail,logout_detail,nav,cart,cartshow
+from .views import index,about,contact,product,single,signup,login_detail,logout_detail,nav,cartshow,cart
 
 
 urlpatterns = [
     path('index/',index,name="index1"),
+    # path('in/',IndexC.as_view,name="ind"),
     path('contact/',contact,name="contact1"),
     path('about/',about,name="about1"),
     path('product/',product,name="product1"),
@@ -14,6 +15,6 @@ urlpatterns = [
     path('logout/',logout_detail,name="logout1"),
     path('nav/',nav),
     path('Cart/<int:pk>/',cart),
-    path('cartshow/<int:pk>/',cartshow),
+    path('cartshow/',cartshow,name='Cart'),
    
 ]

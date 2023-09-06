@@ -24,6 +24,7 @@ class Product(models.Model):
     price=models.FloatField(null=True,blank=True)
     image=models.ImageField(upload_to="static/assets/img")
     permission=models.BooleanField(default=False,null=None,blank=None)
+    
 
     def __str__(self):
         return self.name
@@ -34,6 +35,9 @@ class Product(models.Model):
 class Cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
+
+    # def __str__(self):
+    #     return self.user.name
 
     
     

@@ -2,7 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from Buy.admin import Contact,Category,Product,Cart,Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-
+from django.views import View
 # ---- import for send messages -----
 from django.contrib import messages
 # ---- import for send email -----
@@ -48,7 +48,10 @@ def index(request):
     man_products=Product.objects.filter(cat__name="Men")
     woman_products=Product.objects.filter(cat__name="women's")
     kid_products=Product.objects.filter(cat__name="Kids")
-    return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
+    user=request.user
+    a = user.id
+    quantity=Cart.objects.filter(user=a).count()
+    return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products,'quantity':quantity})
      
 
 def product(request):
@@ -57,6 +60,7 @@ def product(request):
     kid_products=Product.objects.filter(cat__name="Kids",permission=True)
     # per=Product.objects.filter(permission=True)
     return render(request,'products.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
+
 
 def single(request):
     return render(request,'single-product.html')
@@ -127,33 +131,39 @@ def logout_detail(request):
     return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
     # return render(request,'index.html')
 
-
 def cart(request,pk):
     user=request.user
-  
-    productid=pk
+   
+    a = user.id
+    quantity=Cart.objects.filter(user=a).count()
+
  
-    a=Cart(user_id=user.id,product_id=productid)
-    
-    dat=Cart.objects.all()
-    show={'dat':dat}
+    a=Cart(user_id=user.id,product_id=pk)
+    a.save()
+    dat=Cart.objects.filter(user=user.id)
+    # dat=Cart.objects.all()
+    show={'dat':dat,'quantity':quantity}
    
 
     return render(request,'single-product.html',show)
 
-def cartshow(request,pk):
+
+def cartshow(request):
     user=request.user
-    product=Product.objects.get(id=pk)
-    p=user.id
-    a=Cart.objects.filter(user_id=p)
-    # b=user_id
-    # print(b)
+    a = user.id
     print(a)
-    dat=Cart.objects.all()
-    show={'dat':dat}
+    product=request.POST.get('product')
+    dat=Cart.objects.filter(user=a)
+    quantity=Cart.objects.filter(user=a).count()
+    print(  quantity)
+    # quan={'quantity':quantity}
+    # print(quan)
+    show={'dat':dat,'quantity':quantity}
+    print(show)
    
 
     return render(request,'single-product.html',show)
+
 
 
 
