@@ -135,9 +135,8 @@
                                     <div class="hover-content">
                             
                                         <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{% url 'cart' i.id %}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="http://127.0.0.1:8000/index/Cart/{{i.id}}/"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <img src="{{i.image.url}}" alt="">

@@ -21,11 +21,12 @@
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
         <div class="container">
-          {% for i in dat %}
+            {% for i in get_Product %}
+    
             <div class="row">
                 <div class="col-lg-8">
                 <div class="left-images">
-                    <img src="{{i.product.image.url}}" alt="">
+                    <img src="{{i.image.url}}" alt="">
                     <!-- <img src="/static/assets/images/single-product-02.jpg" alt=""> -->
                 </div>
             </div>
@@ -33,9 +34,9 @@
             <div class="col-lg-4">
                 <div class="right-content">
                   
-                    <h4>{{i.product.name}}</h4>
+                    <h4>{{i.name}}</h4>
 
-                    <span class="price"><b>${{i.product.price}}</b></span>
+                    <span class="price"><b>${{i.price}}</b></span>
                     <ul class="stars">
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
@@ -47,29 +48,7 @@
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
                     </div>
-                    {% comment %} <div  class="quantity-content mr-4">
-                        <div class="left-content">
-                            <h6>No. of Orders</h6>
-                        </div>
-                        <div class="right-content">
-                            <div class="quantity buttons_added">
-                                <input type="button" value="-" class="minus">
-                                
-
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""> 
-
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""> {% endcomment %}
-                             {% comment %} <div class="quantity buttons_added" class='text-center col' title="Qty" class="input-text qty text"  size="4">2 in cart</div> {% endcomment %}
-                            {% comment %} <form action="" method ="POST">
-                                {% csrf_token %}
-                                <input type="text" name="product" value="{{product.id}}">
-                                <input type="submit"  value="+" class="plus" class="plus">
-                            
-                            </form> {% endcomment %}
-                         {% comment %} </div>
-                        </div>
-                    </div> {% endcomment %}
-                    <div class="quantity-content">
+                    <!-- <div class="quantity-content">
                         <div class="left-content">
                             <h6>No. of Orders</h6>
                         </div>
@@ -78,11 +57,17 @@
                                 <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    {% if i.is_added_to_Cart > 0 %}
                     <div class="total">
-                        <h4>Total: $210.00</h4>
-                        <div class="main-border-button"><a href="">Add To Cart</a></div>
+                        <h4>already added to Cart</h4>
                     </div>
+                    {% elif i.is_added_to_Cart == 0 %}
+                    <div class="total">
+                    <h4>Total: ${{i.price}}</h4>
+                    <div class="main-border-button"><a href="http://127.0.0.1:8000/index/add_to_cart/{{i.id}}/">Add To Cart</a></div>
+                </div>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

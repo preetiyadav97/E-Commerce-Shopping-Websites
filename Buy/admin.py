@@ -17,7 +17,7 @@ admin.site.register(Category)
 
 class ProductAdmin(admin.ModelAdmin):
     model=Product
-    list_display=['name','price','image','permission']
+    list_display=['id','name','price','image','permission']
 admin.site.register(Product,ProductAdmin)
 
 

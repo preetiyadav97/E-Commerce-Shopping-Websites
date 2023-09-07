@@ -3,6 +3,7 @@ from Buy.admin import Contact,Category,Product,Cart,Wallet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.views import View
+from django.db.models import Count
 # ---- import for send messages -----
 from django.contrib import messages
 # ---- import for send email -----
@@ -131,7 +132,7 @@ def logout_detail(request):
     return render(request,'index.html',{'man_products':man_products,'woman_products':woman_products,'kid_products':kid_products})
     # return render(request,'index.html')
 
-def cart(request,pk):
+def add_to_cart(request,pk):
     user=request.user
    
     a = user.id
@@ -148,11 +149,28 @@ def cart(request,pk):
     return render(request,'single-product.html',show)
 
 
+def cart(request,pk):
+    user=request.user  
+    # get_Product = Product.objects.get(id=pk)
+    get_Product = Product.objects.filter(id=pk).annotate(
+        is_added_to_Cart = Count("product_cart")
+        )
+    print(get_Product.values("is_added_to_Cart"))
+    show={'get_Product':get_Product}
+    return render(request,"productdetail.html",show) 
+
+
 def cartshow(request):
     user=request.user
     a = user.id
     print(a)
+    # product=request.product
+
     product=request.POST.get('product')
+    # product=Product.objects.get(id=id)
+    # context={'product':product}
+
+    print(product)
     dat=Cart.objects.filter(user=a)
     quantity=Cart.objects.filter(user=a).count()
     print(  quantity)
