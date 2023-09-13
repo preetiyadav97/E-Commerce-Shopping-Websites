@@ -49,10 +49,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+RAZORPAY_KEY_ID = "rzp_test_k32Bf5va5dRD8q"
+RAZORPAY_KEY_SECRET = "lr1gLcK44mYssEnkHxGLtvyl"
 
 AUTHENTICATION_BACKENDS = (
-    'userena.backends.UserenaAuthenticationBackend',
-    'guardian.backends.ObjectPermissionBackend',
+    # 'userena.backends.UserenaAuthenticationBackend',
+    # 'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 

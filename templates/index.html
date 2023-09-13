@@ -187,9 +187,9 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{% url 'cart' n.id %}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="http://127.0.0.1:8000/index/Cart/{{n.id}}/"><i class="fa fa-shopping-cart"></i></a></li>
+                                          
                                         </ul>
                                     </div>
                                     <img src="{{n.image.url}}" alt="">
@@ -237,9 +237,9 @@
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
-                                            <li><a href="single-product.html"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{% url 'cart' l.id %}"><i class="fa fa-eye"></i></a></li>
                                             <li><a href="single-product.html"><i class="fa fa-star"></i></a></li>
-                                            <li><a href="http://127.0.0.1:8000/index/Cart/{{l.id}}/"><i class="fa fa-shopping-cart"></i></a></li>
+            
                                         </ul>
                                     </div>
                                     <img src="{{l.image.url}}" alt="">

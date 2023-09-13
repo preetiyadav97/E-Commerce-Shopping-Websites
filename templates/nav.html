@@ -13,6 +13,7 @@
 
 
     <!-- Additional CSS Files -->
+    <style></style>
     <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="/static/assets/css/font-awesome.css">
@@ -22,9 +23,7 @@
     <link rel="stylesheet" href="/static/assets/css/owl-carousel.css">
 
     <link rel="stylesheet" href="/static/assets/css/lightbox.css">
-    {% block CSS %}
-    
-    {% endblock CSS %}
+    {% block CSS %}{% endblock  %}
 <!--
 
 TemplateMo 571 Hexashop
@@ -59,37 +58,51 @@ https://templatemo.com/tm-571-hexashop
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
-                        <ul class="nav">
-                            <li class="scroll-to-section"><a href="http://127.0.0.1:8000/index/index/" class="active">Home</a></li>
-                            <li class="scroll-to-section"><a href="#men">Men's</a></li>
-                            <li class="scroll-to-section"><a href="#women">Women's</a></li>
-                            <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
-                    
-                                {% if user.is_authenticated %}
-                            <li class="submenu">
-                                <a href="javascript:;">{{request.user}}</a>
-                                <ul>
-                                 <li><a href="http://127.0.0.1:8000/index/logout/">Log Out</a></li>
-                                </ul>
-                            </li>
-                              {% else %}
-                            <li class="submenu">
-                                <a href="javascript:;">Pages</a>  
-                                <ul>    
-                                    <li><a href="http://127.0.0.1:8000/index/about/">About Us</a></li>
-                                    <li><a href="http://127.0.0.1:8000/index/contact/">Contact Us</a></li>
-                                    <li><a href="http://127.0.0.1:8000/index/signup/">Signup</a></li>
-                                    <li><a href="http://127.0.0.1:8000/index/login/">Log In </a></li>
-                                </ul> 
-                            </li>
-                              {% endif %}
-                              
-                      
-                            <li><a href="http://127.0.0.1:8000/index/cartshow/">Cart
-                                <span class="badge badge-info">{{quantity}}</span></a>
-                            </li>
-                            <li class="scroll-to-section"><a href="#explore">Explore</a></li>
-                        </ul>        
+                       
+<ul class="nav">
+    <li class="scroll-to-section"><a href="http://127.0.0.1:8000/" class="active">Home</a></li>
+    <!-- <li class="scroll-to-section"><a href="#men">Men's</a></li>
+    <li class="scroll-to-section"><a href="#women">Women's</a></li>
+    <li class="scroll-to-section"><a href="#kids">Kid's</a></li> -->
+    <li class="submenu">
+        <a href="javascript:;">Categories</a>  
+        <ul>    
+        <li class="scroll-to-section"><a href="#men">Men's</a></li>
+        <li class="scroll-to-section"><a href="#women">Women's</a></li>
+        <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
+        <li class="scroll-to-section"><a href="http://127.0.0.1:8000/product/">Our Latest Products</a></li>
+        <li class="scroll-to-section"><a href="#explore">Explore</a></li>
+        </ul> 
+    </li>
+
+    <li><a href="{% url 'about1' %}">About Us</a></li>
+    <li><a href="http://127.0.0.1:8000/contact/">Contact Us</a></li>
+ 
+  
+    {% if user.is_authenticated %}
+    <li class="submenu">
+        <a href="javascript:;">{{request.user}}</a>
+        <ul>
+        <li><a href="{% url 'logout1' %}">Log Out</a></li>
+
+        </ul>
+    </li>
+    <li><a href="http://127.0.0.1:8000/cartshow/">Cart
+        <span class="badge badge-info">{{quantity}}</span></a>
+    </li>
+  
+    {% else %}
+    <li class="submenu">
+        <a href="javascript:;">Pages</a>  
+        <ul>    
+
+            <li><a href="http://127.0.0.1:8000/signup/">Signup</a></li>
+            <li><a href="http://127.0.0.1:8000/login/">Log In </a></li>
+        </ul> 
+    </li>
+    {% endif %}
+
+</ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>
 

@@ -34,7 +34,9 @@ class Product(models.Model):
 class Cart(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_cart')
     product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='product_cart')
-
+    # product_qty=models.IntegerField()
+    # created_at=models.DateTimeField()
+    
     # def __str__(self):
     #     return self.user.name
 
@@ -49,7 +51,8 @@ class Wallet(models.Model):
         return self.user
     
 
-
+# rzp_test_Q7haYLxCb3o990 id 
+# JycshNrSiVs8mv6z6mRXy6HK secret
 
     
 # class Image(models.Model):

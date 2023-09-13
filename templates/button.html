@@ -1,5 +1,10 @@
-{% extends 'nav.html' %}
+<!-- {% extends 'nav.html' %}
 {% block title %}single-product{% endblock %}
+{% block CSS %}
+
+	<link rel="stylesheet" href="/static/assets/css/button.css">  
+{% endblock  %}
+
 {% block body %}
 
     <!-- ***** Main Banner Area Start ***** -->
@@ -21,12 +26,11 @@
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
         <div class="container">
-            {% for i in get_Product %}
-    
+          {% for i in dat %}
             <div class="row">
                 <div class="col-lg-8">
                 <div class="left-images">
-                    <img src="{{i.image.url}}" alt="">
+                    <img src="{{i.product.image.url}}" alt="">
                     <!-- <img src="/static/assets/images/single-product-02.jpg" alt=""> -->
                 </div>
             </div>
@@ -34,9 +38,9 @@
             <div class="col-lg-4">
                 <div class="right-content">
                   
-                    <h4>{{i.name}}</h4>
+                    <h4>{{i.product.name}}</h4>
 
-                    <span class="price"><b>${{i.price}}</b></span>
+                    <span class="price"><b>${{i.product.price}}</b></span>
                     <ul class="stars">
                         <li><i class="fa fa-star"></i></li>
                         <li><i class="fa fa-star"></i></li>
@@ -49,21 +53,37 @@
                         <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
                     </div>
                     
-                    {% if i.is_added_to_Cart > 0 %}
+                        <div class="container">
+                            
+                            <div class="quantity">
+                              <a href="#" class="quantity__minus"><span>-</span></a>
+                              <input name="quantity" type="text" class="quantity__input" value="1">
+                              <a href="#" class="quantity__plus"><span>+</span></a>
+                            </div>
+                            
+                        </div>
+                        
+            
+                    <!-- <div class="quantity-content">
+                        <div class="left-content">
+                            <h6>No. of Orders</h6>
+                        </div>
+                        <div class="right-content">
+                            <div class="quantity buttons_added">
+                                <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                            </div>
+                        </div>
+                    </div> -->
                     <div class="total">
-                        <h4>already added to Cart</h4>
+                        <h4>Total: $210.00</h4>
+                        <div class="main-border-button"><a href="">Add To Cart</a></div>
                     </div>
-                    {% elif i.is_added_to_Cart == 0 %}
-                    <div class="total">
-                    <h4>Total: ${{i.price}}</h4>
-                    <div class="main-border-button"><a href="http://127.0.0.1:8000/add_to_cart/{{i.id}}/">Add To Cart</a></div>
-                </div>
-                    {% endif %}
                 </div>
             </div>
             {% endfor %}
         </div>
     </section>
     <!-- ***** Product Area Ends ***** -->
-    
-{% endblock %}
+    <script src="/static/assets/js/jquery-2.1.0.min.js"></script>
+    <script src="/static/assets/js/button.js"></script>
+{% endblock %} -->

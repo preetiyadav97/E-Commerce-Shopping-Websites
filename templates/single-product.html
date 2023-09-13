@@ -1,4 +1,6 @@
+
 {% extends 'nav.html' %}
+{% load static %}
 {% block title %}single-product{% endblock %}
 {% block body %}
 
@@ -20,7 +22,7 @@
 
     <!-- ***** Product Area Starts ***** -->
     <section class="section" id="product">
-        <div class="container">
+        <div class="container " >
           {% for i in dat %}
             <div class="row">
                 <div class="col-lg-8">
@@ -30,7 +32,7 @@
                 </div>
             </div>
            
-            <div class="col-lg-4">
+            <div class="col-lg-4  product_data">
                 <div class="right-content">
                   
                     <h4>{{i.product.name}}</h4>
@@ -47,47 +49,127 @@
                     <div class="quote">
                         <i class="fa fa-quote-left"></i><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiuski smod.</p>
                     </div>
-                    {% comment %} <div  class="quantity-content mr-4">
+              
+                    <!-- <div class="quantity-content ">
                         <div class="left-content">
                             <h6>No. of Orders</h6>
                         </div>
                         <div class="right-content">
                             <div class="quantity buttons_added">
-                                <input type="button" value="-" class="minus">
+                                <button class ="input-group-text decrement-btn ">-</button>
+                                <input type = "text" name="quantity" class="form-control qty-input text-center" value="1">
+                                <button class ="input-group-text  increment-btn ">+</button>
                                 
-
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""> 
-
-                                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""> {% endcomment %}
-                             {% comment %} <div class="quantity buttons_added" class='text-center col' title="Qty" class="input-text qty text"  size="4">2 in cart</div> {% endcomment %}
-                            {% comment %} <form action="" method ="POST">
-                                {% csrf_token %}
-                                <input type="text" name="product" value="{{product.id}}">
-                                <input type="submit"  value="+" class="plus" class="plus">
-                            
-                            </form> {% endcomment %}
-                         {% comment %} </div>
+                               
+                            </div>
                         </div>
-                    </div> {% endcomment %}
-                    <div class="quantity-content">
+                    </div> -->
+                    <div class="quantity-content ">
                         <div class="left-content">
                             <h6>No. of Orders</h6>
                         </div>
                         <div class="right-content">
                             <div class="quantity buttons_added">
-                                <input type="button" value="-" class="minus"><input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="" inputmode=""><input type="button" value="+" class="plus">
+                                <td> <select class="form-control">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    </select>
+                                </td>
+                                <br>
+                                
+                                <button class ="input-group-text decrement-btn ">Remove</button>
+                                <!-- <input type = "text" name="quantity" class="form-control qty-input text-center" value="1"> -->
+                                <!-- <button class ="input-group-text  increment-btn ">+</button> -->
+                                
+                               
                             </div>
                         </div>
                     </div>
                     <div class="total">
-                        <h4>Total: $210.00</h4>
-                        <div class="main-border-button"><a href="">Add To Cart</a></div>
+                        
+                        <div class="main-border-button"><a href="">Buy</a></div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
     </section>
+    <aside class="col-lg-30">
+        <div class="card mb-3">
+            <div class="card-body">
+                <form>
+                    <div class="form-group"> <label>Have coupon?</label>
+                        <div class="input-group"> <input type="text" class="form-control coupon" name="" placeholder="Coupon code"> <span class="input-group-append"> <button class="btn btn-primary btn-apply coupon">Apply</button> </span> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                    <dt>Total price:</dt>
+                    <dd class="text-right ml-3">$69.97</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>Discount:</dt>
+                    <dd class="text-right text-danger ml-3">- $10.00</dd>
+                </dl>
+                <dl class="dlist-align">
+                    <dt>Total:</dt>
+                    <dd class="text-right text-dark b ml-3"><strong>$59.97</strong></dd>
+                </dl>
+                <hr>
+                <button id="rzp-button1" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </button>
+                <a href="#" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+            </div>
+        </div>
+    </aside>
     <!-- ***** Product Area Ends ***** -->
+    <script>
+        var options = {
+            "key": "rzp_test_k32Bf5va5dRD8q", // Enter the Key ID generated from the Dashboard
+            "amount": "100000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Shopping",
+            "description": "Purchases",
+            "image": "https://example.com/your_logo",
+            "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                alert(response.razorpay_payment_id);
+                alert(response.razorpay_order_id);
+                alert(response.razorpay_signature)
+            },
+            "prefill": {
+                "name": "Gaurav Kumar",
+                "email": "gaurav.kumar@example.com",
+                "contact": "9000090000"
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+                alert(response.error.code);
+                alert(response.error.description);
+                alert(response.error.source);
+                alert(response.error.step);
+                alert(response.error.reason);
+                alert(response.error.metadata.order_id);
+                alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+        </script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="{% static '/js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static '/js/button.js' %}"></script>
     
 {% endblock %}

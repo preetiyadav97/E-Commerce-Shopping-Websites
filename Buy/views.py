@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.views import View
 from django.db.models import Count
+import razorpay
 # ---- import for send messages -----
 from django.contrib import messages
 # ---- import for send email -----
@@ -144,11 +145,11 @@ def add_to_cart(request,pk):
     dat=Cart.objects.filter(user=user.id)
     # dat=Cart.objects.all()
     show={'dat':dat,'quantity':quantity}
-   
-
+    # return render('index1')
+    
     return render(request,'single-product.html',show)
 
-
+from django.conf import Settings
 def cart(request,pk):
     user=request.user  
     # get_Product = Product.objects.get(id=pk)
@@ -157,7 +158,10 @@ def cart(request,pk):
         )
     print(get_Product.values("is_added_to_Cart"))
     show={'get_Product':get_Product}
+
     return render(request,"productdetail.html",show) 
+client=razorpay.Client(auth=(settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
+payment= client.
 
 
 def cartshow(request):
@@ -182,7 +186,30 @@ def cartshow(request):
 
     return render(request,'single-product.html',show)
 
-
+def total(self):
+    cart_item=self.cart_item.all()
+    price=[]
+    for i in cart_item:
+        price.append(i.product.price)
+        
+    return sum(price)
+    
+ 
+    # rawcart = Cart.objects.filter(user=request.user)
+    
+    # user=request.user
+    # quantity=Cart.objects.filter(user=user.id).count()
+    # for i in rawcart:
+    #     if i.product_qty> i.quantity:
+    #         Cart.objects.delete(id=i.id)
+    
+    # cartitems=Cart.objects.filter(user=request.user)
+    # total_price=0
+    # for i in cartitems:
+    #     total_price= total_price+i.product.price*i.product_qty
+    # context={'cartitems':cartitems,'total_price':total_price}
+    # return render(request,'single-product.html',context)
+            
 
 
 
